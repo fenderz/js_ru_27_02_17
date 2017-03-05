@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import List from './List'
 
-class Article extends Component {
+class Comment extends Component {
 
     constructor() {
         super();
@@ -11,15 +10,13 @@ class Article extends Component {
     }
 
     render() {
-        const {article} = this.props;
-        const comment = article.comments;
+        const {comment} = this.props;
         const {isOpen} = this.state;
         const body = isOpen ? <section>{article.text}</section> : null;
         return (
             <div>
                 <h3 onClick={this.handleClick}>{article.title}</h3>
-                {body}
-                <List article={article} />
+                <p></p>{body}
             </div>
         )
     }
@@ -31,4 +28,4 @@ class Article extends Component {
     }
 }
 
-export default Article
+export default Comment
