@@ -14,21 +14,36 @@ class Article extends Component {
     render() {
         const {article} = this.props;
         const {isOpen} = this.state;
-        const {isCommentOpen} = this.state;
-        const body = isOpen ? <section>{article.text}</section> : null;
-        const switchTitle = isCommentOpen ? 'Hide comment' : 'Show comment';
-        const comments = isCommentOpen ? <CommentsList article={article} /> : null;
-        const hasComments = article.comments ? <p onClick={this.handleCommentsClick}>{switchTitle}</p> : null;
+        const body = isOpen ?
+            <section>
+                {article.text}
+                {this.renderComments()}
+            </section> : null;
 
         return (
             <div>
                 <h3 onClick={this.handleClick}>{article.title}</h3>
                 {body}
-                {hasComments}
-                {comments}
             </div>
         )
     }
+
+    renderComments() {
+        const {article} = this.props;
+        if (!article.comments) {
+            return null;
+        }
+
+        const {isCommentOpen} = this.state;
+
+        const switchTitle = isCommentOpen ? 'Hide comment' : 'Show comment';
+
+        return <div>
+            <p onClick={this.handleCommentsClick}>{switchTitle}</p>
+            {isCommentOpen ? <CommentsList article={article} /> : null}
+        </div>
+    }
+
 
     handleClick = (ev) => {
         this.setState({
